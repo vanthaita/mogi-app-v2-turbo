@@ -61,9 +61,6 @@ const ProfilePage = () => {
 
   return (
     <div className="p-4">
-      <div className="text-xl sm:text-2xl font-semibold mb-4">
-        User name: {formData.name}
-      </div>
       {successMessage && (
         <div className="mb-4 p-2 bg-green-100 text-green-800 rounded">
           {successMessage}
@@ -77,6 +74,17 @@ const ProfilePage = () => {
         <p className="underline text-blue-500 cursor-pointer">Change image</p>
       </div>
       <form className="mt-6 space-y-4">
+        <div>
+          <Label className="block text-sm font-medium text-gray-700" htmlFor="name">
+            Name
+          </Label>
+          <Input
+            id="name"
+            value={formData.name}
+            onChange={handleChange}
+            className="w-full mt-1 p-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 focus:ring-blue-300"
+          />
+        </div>
         <div>
           <Label className="block text-sm font-medium text-gray-700" htmlFor="familyName">
             Family Name
@@ -101,17 +109,7 @@ const ProfilePage = () => {
           />
         </div>
 
-        <div>
-          <Label className="block text-sm font-medium text-gray-700" htmlFor="name">
-            Name
-          </Label>
-          <Input
-            id="name"
-            value={formData.name}
-            onChange={handleChange}
-            className="w-full mt-1 p-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 focus:ring-blue-300"
-          />
-        </div>
+        
 
         <div>
           <Label className="block text-sm font-medium text-gray-700" htmlFor="email">

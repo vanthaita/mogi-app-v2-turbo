@@ -95,11 +95,11 @@ const InterviewQuestionList: React.FC = () => {
         />
       </Card>
       {loading ? (
-        <div className="text-center py-6">
-          <div className="spinner-border animate-spin w-8 h-8 border-4 border-t-4 border-gray-500 rounded-full"></div>
-          <p className="mt-4 text-gray-600">Loading interviews...</p>
+        <div className="flex flex-row justify-center items-center py-6 text-center space-x-2">
+            <div className="animate-spin w-8 h-8 border-4 border-t-transparent border-gray-500 rounded-full mb-2"></div>
+            <p className="text-gray-600 pb-2">Loading interviews...</p>
         </div>
-      ) : (
+        ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {mockInterviewList.length > 0 ? (
             mockInterviewList.map((interview) => (

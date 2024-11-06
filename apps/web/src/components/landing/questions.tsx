@@ -10,7 +10,7 @@ import Pricing from './pricing';
 const Questions = () => {
   return (
     <>
-    {/* <Pricing /> */}
+    <Pricing />
     <div className="mx-auto px-8 py-10 md:p-20 xl:p-40 border-b-4 w-full">
         <div className='w-full flex justify-center items-center flex-col'>
             <h1 className='text-4xl font-bold text-center'>Frequently Asked Questions</h1>

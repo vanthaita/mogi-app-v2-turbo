@@ -21,7 +21,7 @@ const CardInterview = ({ role, techStack, experience, questions, time, mockId}: 
         console.error('Failed to parse JSON:', e);
     }
     return (
-        <Card className='p-4 border-4 border-black bg-white lg:w-[24rem] h-[14.5rem] w-[22rem]'>
+        <Card className='p-4 border-4 border-black bg-white lg:w-[26rem] h-[14.5rem] w-[24rem]'>
             <div className='flex flex-col gap-4 mb-4'>
             <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-2">

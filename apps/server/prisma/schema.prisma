@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String       @id @default(uuid())
+  familyName       String?
+  givenName        String?
+  name             String?
+  email            String       @unique
+  passwordHash     String?
+  picture          String?
+  providerId       String
+  refreshToken     String?      
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+  mockInterviews   MockInterview[] @relation("UserMockInterviews")
+  userAnswers      UserAnswer[]   @relation("UserAnswers")
+  tokens           Token[]       @relation("UserTokens")
+  stripeSubscription StripeSubscription?
+}
+
+model MockInterview {
+  id                String       @id @default(uuid())
+  jsonMockResp      String
+  jobPosition       String
+  jobDesc           String
+  jobExperience     String
+  companyInfo       String?
+  interviewLanguage String?
+  additionalDetails String?
+  is_public         Boolean?  @default(false)
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+  userId            String
+  user              User         @relation("UserMockInterviews", fields: [userId], references: [id])
+  userAnswers       UserAnswer[] @relation("InterviewAnswers")
+}
+
+model UserAnswer {
+  id            String       @id @default(uuid())
+  mockId        String
+  question      String
+  correctAnswer String
+  userAns       String
+  feedback      String
+  rating        String
+  userId        String
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  mockInterview MockInterview @relation("InterviewAnswers", fields: [mockId], references: [id])
+  user          User         @relation("UserAnswers", fields: [userId], references: [id])
+}
+
+// New model to manage tokens for each user
+model Token {
+  id           String   @id @default(uuid())
+  amount       Int      @default(0) 
+  transactionType String 
+  description  String?
+  userId       String
+  createdAt    DateTime @default(now())
+  user         User     @relation("UserTokens", fields: [userId], references: [id])
+}
+
+model StripeSubscription {
+  id                 String   @id @default(uuid())
+  stripeCustomerId   String   @unique // Stripe Customer ID
+  stripeSubscriptionId String? // Stripe Subscription ID for managing subscriptions
+  status             String   // Current status (e.g., active, canceled)
+  currentPeriodEnd   DateTime? // Subscription expiration date
+  userId             String    @unique // Each user has one subscription
+  user               User      @relation(fields: [userId], references: [id])
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+}

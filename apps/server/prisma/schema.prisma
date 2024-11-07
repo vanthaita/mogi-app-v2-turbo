@@ -8,22 +8,22 @@ datasource db {
 }
 
 model User {
-  id               String       @id @default(uuid())
+  id               String              @id @default(uuid())
   familyName       String?
   givenName        String?
   name             String?
-  email            String       @unique
+  email            String              @unique
   passwordHash     String?
   picture          String?
   providerId       String
   refreshToken     String?      
-  createdAt        DateTime     @default(now())
-  updatedAt        DateTime     @updatedAt
-  mockInterviews   MockInterview[] @relation("UserMockInterviews")
-  userAnswers      UserAnswer[]   @relation("UserAnswers")
-  tokens           Token[]       @relation("UserTokens")
-  stripeSubscription StripeSubscription?
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+  mockInterviews   MockInterview[]     @relation("UserMockInterviews")
+  userAnswers      UserAnswer[]        @relation("UserAnswers")
+  stripeSubscription StripeSubscription? 
 }
+
 
 model MockInterview {
   id                String       @id @default(uuid())
@@ -57,25 +57,15 @@ model UserAnswer {
   user          User         @relation("UserAnswers", fields: [userId], references: [id])
 }
 
-// New model to manage tokens for each user
-model Token {
-  id           String   @id @default(uuid())
-  amount       Int      @default(0) 
-  transactionType String 
-  description  String?
-  userId       String
-  createdAt    DateTime @default(now())
-  user         User     @relation("UserTokens", fields: [userId], references: [id])
-}
-
 model StripeSubscription {
-  id                 String   @id @default(uuid())
-  stripeCustomerId   String   @unique // Stripe Customer ID
-  stripeSubscriptionId String? // Stripe Subscription ID for managing subscriptions
-  status             String   // Current status (e.g., active, canceled)
-  currentPeriodEnd   DateTime? // Subscription expiration date
-  userId             String    @unique // Each user has one subscription
-  user               User      @relation(fields: [userId], references: [id])
-  createdAt          DateTime  @default(now())
-  updatedAt          DateTime  @updatedAt
+  id                String     @id @default(uuid())
+  userId            String     @unique // Assuming one subscription per user
+  stripeCustomerId  String     @unique
+  stripeSubscriptionId String? // Optional, in case subscriptions aren't active initially
+  status            String     // e.g., active, canceled, past_due, etc.
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+  user              User       @relation(fields: [userId], references: [id])
+  currentPeriodStart DateTime?
+  currentPeriodEnd   DateTime?
 }

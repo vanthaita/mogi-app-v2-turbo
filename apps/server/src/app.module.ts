@@ -5,12 +5,14 @@ import { InterviewModule } from './interview/interview.module';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaService } from './prisma.service';
 import { PrismaModule } from './prisma.module';
+import { StripeModule } from './stripe/stripe.module';
 @Module({
   imports: [
     UserModule,
     AuthModule,
     InterviewModule,
     PrismaModule,
+    StripeModule,
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',

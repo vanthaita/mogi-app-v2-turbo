@@ -1,16 +1,54 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card } from '../ui/card';
 import { CheckCircle } from 'lucide-react';
 import { Button } from '../ui/button';
+import Link from 'next/link';
+import { loadStripe } from '@stripe/stripe-js';
+import axiosInstance from '@/helper/axios';
+
+const stripePromise = loadStripe('your-public-key-here'); 
 
 const Pricing = () => {
+    const [loading, setLoading] = useState(false);
+
+    const handleFreePlanClick = async () => {
+        alert('You selected the Free Plan!');
+    };
+
+    const handlePremiumPlanClick = async () => {
+        setLoading(true);
+        
+        try {
+            const res = await axiosInstance.post('/stripe/create-customer', {
+                body: JSON.stringify({ email: 'customer@example.com', name: 'Customer Name' }),
+            });
+            const data = await res.data;
+            const customerId = data.customerId;
+            const sessionRes = await axiosInstance.post('/stripe/create-subscription-session', {
+                body: JSON.stringify({ customerId }),
+            });
+            const sessionData = await sessionRes.data;
+            const sessionId = sessionData.sessionId;
+
+            const stripe = await stripePromise;
+            const { error } = await stripe.redirectToCheckout({ sessionId });
+
+            if (error) {
+                console.error(error.message);
+            }
+        } catch (error) {
+            console.error('Error creating subscription:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <div className="flex flex-col items-center px-6 py-20 bg-gradient-to-b from-gray-100 to-gray-50 min-h-screen">
             <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800 text-center mb-12">
                 Our Pricing Plans
             </h1>
             <div className="flex flex-col lg:flex-row items-center lg:space-x-10 space-y-10 lg:space-y-0 w-full max-w-9xl justify-center">
-                {/* Free Plan */}
                 <Card className="flex flex-col justify-between border border-gray-200 bg-white p-8 w-full max-w-sm text-left rounded-xl shadow-lg transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl">
                     <div>
                         <div className="flex items-center space-x-3 mb-4">
@@ -33,12 +71,14 @@ const Pricing = () => {
                             </li>
                         </ul>
                     </div>
-                    <Button variant="neutral" className="mt-8 w-full py-3 font-semibold rounded-lg bg-gray-800 text-white hover:bg-gray-700 transition-all duration-300 ease-in-out">
+                    <Button
+                        variant="neutral"
+                        className="mt-8 w-full py-3 font-semibold rounded-lg bg-gray-800 text-white hover:bg-gray-700 transition-all duration-300 ease-in-out"
+                        onClick={handleFreePlanClick}
+                    >
                         Choose Free Plan
                     </Button>
                 </Card>
-                
-                {/* Premium Plan */}
                 <Card className="flex flex-col justify-between border border-gray-300 bg-gray-900 text-white p-8 w-full max-w-sm text-left rounded-xl shadow-xl transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl">
                     <div>
                         <div className="flex items-center space-x-3 mb-4">
@@ -61,8 +101,13 @@ const Pricing = () => {
                             </li>
                         </ul>
                     </div>
-                    <Button variant="neutral" className="mt-8 w-full py-3 font-semibold rounded-lg bg-purple-600 hover:bg-purple-500 transition-all duration-300 ease-in-out">
-                        Choose Premium Plan
+                    <Button
+                        variant="neutral"
+                        className="mt-8 w-full py-3 font-semibold rounded-lg bg-purple-600 hover:bg-purple-500 transition-all duration-300 ease-in-out"
+                        onClick={handlePremiumPlanClick}
+                        disabled={loading}
+                    >
+                        {loading ? 'Loading...' : 'Choose Premium Plan'}
                     </Button>
                 </Card>
             </div>

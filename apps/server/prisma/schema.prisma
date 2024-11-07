@@ -8,20 +8,46 @@ datasource db {
 }
 
 model User {
-  id               String              @id @default(uuid())
-  familyName       String?
-  givenName        String?
-  name             String?
-  email            String              @unique
-  passwordHash     String?
-  picture          String?
-  providerId       String
-  refreshToken     String?      
-  createdAt        DateTime            @default(now())
-  updatedAt        DateTime            @updatedAt
-  mockInterviews   MockInterview[]     @relation("UserMockInterviews")
-  userAnswers      UserAnswer[]        @relation("UserAnswers")
-  stripeSubscription StripeSubscription? 
+  id                   String                  @id @default(uuid())
+  familyName           String?
+  givenName            String?
+  name                 String?
+  email                String                  @unique
+  passwordHash         String?
+  picture              String?
+  providerId           String
+  refreshToken         String?      
+  createdAt            DateTime                @default(now())
+  updatedAt            DateTime                @updatedAt
+  mockInterviews       MockInterview[]         @relation("UserMockInterviews")
+  userAnswers          UserAnswer[]            @relation("UserAnswers")
+  stripeSubscription   StripeSubscription?     
+  subscriptionHistory  SubscriptionHistory[]   @relation("UserSubscriptionHistory")
+}
+
+model StripeSubscription {
+  id                   String                  @id @default(uuid())
+  userId               String                   @unique
+  stripeCustomerId     String                  @unique
+  stripeSubscriptionId String?    
+  status               String
+  currentPeriodStart   DateTime?
+  currentPeriodEnd     DateTime?
+  createdAt            DateTime                @default(now())
+  updatedAt            DateTime                @updatedAt
+  user                 User                    @relation(fields: [userId], references: [id])
+  history              SubscriptionHistory[]   @relation("SubscriptionStripeHistory")
+}
+
+model SubscriptionHistory {
+  id                   String                  @id @default(uuid())
+  userId               String
+  subscriptionId       String?
+  action               String                  
+  status               String
+  timestamp            DateTime                @default(now())
+  user                 User                    @relation("UserSubscriptionHistory", fields: [userId], references: [id])
+  subscription         StripeSubscription?     @relation("SubscriptionStripeHistory", fields: [subscriptionId], references: [id])
 }
 
 
@@ -57,15 +83,3 @@ model UserAnswer {
   user          User         @relation("UserAnswers", fields: [userId], references: [id])
 }
 
-model StripeSubscription {
-  id                String     @id @default(uuid())
-  userId            String     @unique // Assuming one subscription per user
-  stripeCustomerId  String     @unique
-  stripeSubscriptionId String? // Optional, in case subscriptions aren't active initially
-  status            String     // e.g., active, canceled, past_due, etc.
-  createdAt         DateTime   @default(now())
-  updatedAt         DateTime   @updatedAt
-  user              User       @relation(fields: [userId], references: [id])
-  currentPeriodStart DateTime?
-  currentPeriodEnd   DateTime?
-}

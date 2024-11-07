@@ -9,8 +9,9 @@ export class StripeWebhookController {
   @Post()
   async handleWebhook(
     @Body() body: string,
-    @Headers('stripe-signature') signature: string,
+    @Headers('Stripe-Signature') signature: string,
   ) {
+    console.log(body);
     let event: Stripe.Event;
 
     try {

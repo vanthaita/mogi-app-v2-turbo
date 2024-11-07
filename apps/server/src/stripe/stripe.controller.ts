@@ -7,8 +7,7 @@ export class StripeController {
 
     @Post('create-customer')
     async createCustomer(@Body() body: { email: string; name: string }) {
-        const customer = await this.stripeService.createCustomer(body.email, body.name);
-        return { customerId: customer.id };
+        return await this.stripeService.createCustomer(body.email, body.name);
     }
     @Post('create-subscription-session')
     async createSubscriptionSession(@Body() body: { customerId: string }) {

@@ -5,11 +5,13 @@ import { Button } from '../ui/button';
 import Link from 'next/link';
 import { loadStripe } from '@stripe/stripe-js';
 import axiosInstance from '@/helper/axios';
+import { redirect } from 'next/navigation';
+import { useAuth } from '@/context/auth.context';
 
-const stripePromise = loadStripe('your-public-key-here'); 
-
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string)
 const Pricing = () => {
     const [loading, setLoading] = useState(false);
+    const {user} = useAuth();
 
     const handleFreePlanClick = async () => {
         alert('You selected the Free Plan!');
@@ -17,24 +19,26 @@ const Pricing = () => {
 
     const handlePremiumPlanClick = async () => {
         setLoading(true);
-        
+    
         try {
             const res = await axiosInstance.post('/stripe/create-customer', {
-                body: JSON.stringify({ email: 'customer@example.com', name: 'Customer Name' }),
+                email: user?.email,
+                name: user?.name,
             });
-            const data = await res.data;
-            const customerId = data.customerId;
+            const { customerId } = res.data;
+            console.log('Customer ID:', customerId);
             const sessionRes = await axiosInstance.post('/stripe/create-subscription-session', {
-                body: JSON.stringify({ customerId }),
+                customerId,
             });
-            const sessionData = await sessionRes.data;
-            const sessionId = sessionData.sessionId;
-
+            const { sessionId } = sessionRes.data;
             const stripe = await stripePromise;
-            const { error } = await stripe.redirectToCheckout({ sessionId });
-
-            if (error) {
-                console.error(error.message);
+            if (stripe) {
+                const { error } = await stripe.redirectToCheckout({ sessionId });
+                if (error) {
+                    console.error(error.message);
+                }
+            } else {
+                console.error("Stripe failed to initialize.");
             }
         } catch (error) {
             console.error('Error creating subscription:', error);
@@ -42,6 +46,7 @@ const Pricing = () => {
             setLoading(false);
         }
     };
+    
 
     return (
         <div className="flex flex-col items-center px-6 py-20 bg-gradient-to-b from-gray-100 to-gray-50 min-h-screen">

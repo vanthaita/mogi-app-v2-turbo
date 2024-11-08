@@ -14,7 +14,7 @@ model User {
   name                 String?
   email                String                  @unique
   passwordHash         String?
-  stripeCustomerId     String?                 @unique // Add this field
+  stripeCustomerId     String?                 @unique 
   picture              String?
   providerId           String
   refreshToken         String?      

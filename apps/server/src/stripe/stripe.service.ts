@@ -14,12 +14,11 @@ export class StripeService {
             apiVersion: '2024-10-28.acacia',
         });
     }
-
-    constructEvent(body: string, signature: string): Stripe.Event {
+    constructEvent(rawBody: string, signature: string): Stripe.Event {
         return this.stripe.webhooks.constructEvent(
-            body,
-            signature,
-            process.env.STRIPE_WEBHOOK_SECRET,
+          rawBody,
+          signature,
+          process.env.STRIPE_WEBHOOK_SECRET
         );
     }
 
@@ -113,50 +112,78 @@ export class StripeService {
         });
     }
 
-    async createCustomer(email: string, name: string) {
+    // async createCustomer(email: string, name: string) {
+    //     const user = await this.prisma.user.findUnique({
+    //         where: { email },
+    //         select: { id: true, stripeCustomerId: true },
+    //     });
+    
+    //     if (!user) {
+    //         throw new Error('User not found');
+    //     }
+    //     if (user.stripeCustomerId) {
+    //         return { customerId: user.stripeCustomerId };
+    //     }
+    //     const customer = await this.stripe.customers.create({ email, name });
+    //     await this.prisma.user.update({
+    //         where: { id: user.id },
+    //         data: { stripeCustomerId: customer.id },
+    //     });
+    
+    //     return customer.id;
+    // }
+    
+
+    async handleCustomerAndSubscription(
+        email: string,
+        name: string,
+        priceId: string = process.env.STRIPE_PRICE_ID,
+        successUrl: string = process.env.STRIPE_SUCCESS_URL,
+        cancelUrl: string = process.env.STRIPE_CANCEL_URL
+    ): Promise<Stripe.Checkout.Session> {
+        // Validate that email is provided and is not undefined/null
+        if (!email) {
+            throw new Error('Email must be provided and cannot be undefined or null');
+        }
+    
+        // Find existing user or throw an error if not found
         const user = await this.prisma.user.findUnique({
             where: { email },
-            select: {
-                id: true,
-                stripeCustomerId: true,
-            },
-        })
+            select: { id: true, stripeCustomerId: true },
+        });
+    
         if (!user) {
             throw new Error('User not found');
         }
-        if (user.stripeCustomerId) {
-            return {customerId: user.stripeCustomerId};
+    
+        let stripeCustomerId = user.stripeCustomerId;
+    
+        // Create a new Stripe customer if it doesn't exist
+        if (!stripeCustomerId) {
+            const customer = await this.stripe.customers.create({ email, name });
+            stripeCustomerId = customer.id;
+    
+            // Update the user record with the new Stripe customer ID
+            await this.prisma.user.update({
+                where: { id: user.id },
+                data: { stripeCustomerId: stripeCustomerId },
+            });
         }
-        const customer = await this.stripe.customers.create({
-            email,
-            name,
-        });
-        return customer.id
-    }
-
-    async createSubscriptionSession(
-        customerId: string,
-        priceId: string = process.env.STRIPE_PRICE_ID,
-        successUrl: string = process.env.STRIPE_SUCCESS_URL,
-        cancelUrl: string = process.env.STRIPE_CANCEL_URL,
-    ): Promise<Stripe.Checkout.Session> {
-        return await this.stripe.checkout.sessions.create({
-            customer: customerId,
+    
+        // Create a subscription session for the customer
+        return this.stripe.checkout.sessions.create({
+            customer: stripeCustomerId,
             mode: 'subscription',
             billing_address_collection: 'auto',
-            line_items: [{
-                price: priceId,
-                quantity: 1
-            }],
+            line_items: [{ price: priceId, quantity: 1 }],
             payment_method_types: ['card'],
-            customer_update: {
-                address: 'auto',
-                name: 'auto',
-            },
+            customer_update: { address: 'auto', name: 'auto' },
             success_url: successUrl,
             cancel_url: cancelUrl,
         });
     }
+    
+    
     // async createCustomerPortal() {
     //     const session = await stripe.billingPortal.sessions.create({
     //         customer: data?.user.stripeCustomerId as string,

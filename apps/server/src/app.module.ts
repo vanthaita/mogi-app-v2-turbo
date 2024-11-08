@@ -6,12 +6,14 @@ import { ConfigModule } from '@nestjs/config';
 import { PrismaService } from './prisma.service';
 import { PrismaModule } from './prisma.module';
 import { StripeModule } from './stripe/stripe.module';
+import { StripeWebhookModule } from './stripe/stripe.webhook.module';
 @Module({
   imports: [
     UserModule,
     AuthModule,
     InterviewModule,
     PrismaModule,
+    StripeWebhookModule,
     StripeModule,
     ConfigModule.forRoot({
       isGlobal: true,

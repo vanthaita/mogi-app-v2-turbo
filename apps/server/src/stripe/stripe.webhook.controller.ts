@@ -1,42 +1,43 @@
-import { Body, Controller, Headers, Post, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Post, Req, Res, HttpException, HttpStatus } from '@nestjs/common';
+import { Request, Response } from 'express';
 import { StripeService } from './stripe.service';
 import Stripe from 'stripe';
 
-@Controller('stripe-webhook')
+@Controller('webhook')
 export class StripeWebhookController {
-  constructor(private readonly stripeService: StripeService) {}
+    constructor(private readonly stripeService: StripeService) {}
+    
+    @Post()
+    async handleWebhook(@Req() req: Request, @Res() res: Response) {
+        const signature = req.headers['stripe-signature'];
+        let event: Stripe.Event;
 
-  @Post()
-  async handleWebhook(
-    @Body() body: string,
-    @Headers('Stripe-Signature') signature: string,
-  ) {
-    console.log(body);
-    let event: Stripe.Event;
+        try {
+            event = this.stripeService.constructEvent(req.body, signature as string);
+            console.log('Event constructed successfully:', event);
+        } catch (err) {
+            console.error('Error validating Stripe webhook signature:', err.message);
+            throw new HttpException('Webhook signature verification failed.', HttpStatus.BAD_REQUEST);
+        }
 
-    try {
-      event = this.stripeService.constructEvent(body, signature);
-    } catch (err) {
-      throw new HttpException('Webhook signature verification failed.', HttpStatus.BAD_REQUEST);
+        // Handle the event
+        try {
+            switch (event.type) {
+                case 'checkout.session.completed':
+                    await this.stripeService.handleCheckoutSessionCompleted(event);
+                    break;
+                case 'invoice.payment_succeeded':
+                    await this.stripeService.handleInvoicePaymentSucceeded(event);
+                    break;
+                default:
+                    console.log(`Unhandled event type ${event.type}`);
+            }
+
+            // Acknowledge the event
+            res.json({ received: true });
+        } catch (error) {
+            console.error('Error handling the event:', error.message);
+            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ error: 'Failed to process event' });
+        }
     }
-
-    switch (event.type) {
-      case 'checkout.session.completed':
-        await this.stripeService.handleCheckoutSessionCompleted(event);
-        break;
-      case 'invoice.payment_succeeded':
-        await this.stripeService.handleInvoicePaymentSucceeded(event);
-        break;
-    //   case 'customer.subscription.updated':
-    //     await this.stripeService.handleSubscriptionUpdated(event);
-    //     break;
-    //   case 'invoice.payment_failed':
-    //     await this.stripeService.handlePaymentFailed(event);
-    //     break;
-      default:
-        console.log(`Unhandled event type ${event.type}`);
-    }
-
-    return { received: true };
-  }
 }

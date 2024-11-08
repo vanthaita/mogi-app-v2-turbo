@@ -7,7 +7,7 @@ import React from 'react'
 export default function page() {
   return (
     <div className=' w-full min-h-[80vh] items-center flex justify-center'>
-        <Card className=' w-[350px]'>
+        <Card className=' w-[350px] bg-white'>
             <div className='p-6'>
                 <div className='w-full flex justify-center'>
                     <XIcon className='w-12 h-12 rounded-full bg-red-500/30 text-red-500 p-2'/>
@@ -19,7 +19,7 @@ export default function page() {
                     </div>
 
                     <div className='mt-5 sm:mt-6 w-full'>
-                        <Button className=' w-full' asChild>
+                        <Button className=' w-full bg-blue-500' asChild>
                             <Link href="/"> Go back to dashboard</Link>
                         </Button>
                     </div>

@@ -21,14 +21,9 @@ const Pricing = () => {
         setLoading(true);
     
         try {
-            const res = await axiosInstance.post('/stripe/create-customer', {
+            const sessionRes = await axiosInstance.post('/stripe/create-subscription-session', {
                 email: user?.email,
                 name: user?.name,
-            });
-            const { customerId } = res.data;
-            console.log('Customer ID:', customerId);
-            const sessionRes = await axiosInstance.post('/stripe/create-subscription-session', {
-                customerId,
             });
             const { sessionId } = sessionRes.data;
             const stripe = await stripePromise;

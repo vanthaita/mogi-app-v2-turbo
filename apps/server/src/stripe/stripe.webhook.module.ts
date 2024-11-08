@@ -3,7 +3,6 @@ import { StripeWebhookController } from './stripe.webhook.controller';
 import { StripeService } from './stripe.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PrismaModule } from 'src/prisma.module';
-import { RawBodyMiddleware } from 'src/middleware/RawBodyMiddleware.middleware';
 
 @Module({
   imports: [
@@ -21,10 +20,4 @@ import { RawBodyMiddleware } from 'src/middleware/RawBodyMiddleware.middleware';
   ],
   controllers: [StripeWebhookController],
 })
-export class StripeWebhookModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(RawBodyMiddleware)
-      .forRoutes({ path: 'webhook', method: RequestMethod.POST });
-  }
-}
+export class StripeWebhookModule {}

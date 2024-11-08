@@ -13,7 +13,12 @@ export class StripeController {
         );
         return { sessionId: session.id };
     }
-
+    @Post('customer-portal')
+    async CustomerPortal(@Body() body: { email: string}) {
+        const { email } = body;
+        const portalUrl = await this.stripeService.createCustomerPortal(email);
+        return { url: portalUrl }
+    }
     @Get('subscription/:id')
     async retrieveSubscription(@Param('id') id: string) {
         return await this.stripeService.retrieveSubscription(id);

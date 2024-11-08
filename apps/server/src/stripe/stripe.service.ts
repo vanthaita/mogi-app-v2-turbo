@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, Redirect } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import Stripe from 'stripe';
 
@@ -25,35 +25,26 @@ export class StripeService {
     async handleCheckoutSessionCompleted(event: Stripe.Event) {
         console.log('Checkout session completed:', event);
         const session = event.data.object as Stripe.Checkout.Session;
-        const subscription = await this.stripe.subscriptions.retrieve(
-            session.subscription as string,
-        );
+        const subscription = await this.stripe.subscriptions.retrieve(session.subscription as string);
         const customerId = String(session.customer);
-
-        // Query StripeSubscription directly using the stripeCustomerId
+    
+        // Ensure stripeSubscription exists, otherwise throw an error
         const stripeSubscription = await this.prisma.stripeSubscription.findUnique({
-            where: {
-                stripeCustomerId: customerId,
-            },
-            include: {
-                user: true,
-            },
+            where: { stripeCustomerId: customerId },
+            include: { user: true },
         });
-
+    
         if (!stripeSubscription) {
             throw new Error('Stripe subscription not found...');
         }
-
+    
         const user = stripeSubscription.user;
         if (!user) {
             throw new Error('User not found...');
         }
-
-        // Create or update the subscription in the database
+    
         const updatedSubscription = await this.prisma.stripeSubscription.upsert({
-            where: {
-                stripeCustomerId: customerId,
-            },
+            where: { stripeCustomerId: customerId },
             create: {
                 stripeSubscriptionId: subscription.id,
                 userId: user.id,
@@ -69,8 +60,7 @@ export class StripeService {
                 status: subscription.status,
             },
         });
-
-        // Add an entry to the SubscriptionHistory model
+    
         await this.prisma.subscriptionHistory.create({
             data: {
                 userId: user.id,
@@ -141,12 +131,10 @@ export class StripeService {
         successUrl: string = process.env.STRIPE_SUCCESS_URL,
         cancelUrl: string = process.env.STRIPE_CANCEL_URL
     ): Promise<Stripe.Checkout.Session> {
-        // Validate that email is provided and is not undefined/null
         if (!email) {
             throw new Error('Email must be provided and cannot be undefined or null');
         }
     
-        // Find existing user or throw an error if not found
         const user = await this.prisma.user.findUnique({
             where: { email },
             select: { id: true, stripeCustomerId: true },
@@ -158,19 +146,28 @@ export class StripeService {
     
         let stripeCustomerId = user.stripeCustomerId;
     
-        // Create a new Stripe customer if it doesn't exist
         if (!stripeCustomerId) {
             const customer = await this.stripe.customers.create({ email, name });
             stripeCustomerId = customer.id;
     
-            // Update the user record with the new Stripe customer ID
+            // Create the StripeSubscription record separately and ensure it has the correct fields
+            await this.prisma.stripeSubscription.create({
+                data: {
+                    userId: user.id,
+                    stripeCustomerId,
+                    currentPeriodStart: new Date(0),
+                    currentPeriodEnd: new Date(0),
+                    status: 'active',
+                    stripeSubscriptionId: null,
+                }
+            });
+    
             await this.prisma.user.update({
                 where: { id: user.id },
-                data: { stripeCustomerId: stripeCustomerId },
+                data: { stripeCustomerId },
             });
         }
     
-        // Create a subscription session for the customer
         return this.stripe.checkout.sessions.create({
             customer: stripeCustomerId,
             mode: 'subscription',
@@ -184,14 +181,29 @@ export class StripeService {
     }
     
     
-    // async createCustomerPortal() {
-    //     const session = await stripe.billingPortal.sessions.create({
-    //         customer: data?.user.stripeCustomerId as string,
-    //         return_url: `${process.env.PRODUCTION_URL}/dashboard/billing`,
-    //     })
-
-    //     return redirect(session.url);
-    // }
+    async createCustomerPortal(email: string) {
+        if (!email) {
+            throw new Error('Email is required to create a customer portal');
+        }
+    
+        const user = await this.prisma.user.findUnique({
+            where: { email },
+            select: { id: true, stripeCustomerId: true },
+        });
+    
+        if (!user) {
+            throw new Error('User not found');
+        }
+    
+        const session = await this.stripe.billingPortal.sessions.create({
+            customer: user.stripeCustomerId as string,
+            return_url: `${process.env.NEXT_PUBLIC_URL}/dashboard/plan`,
+        });
+    
+        console.log('Customer portal session URL:', session.url);
+        return session.url;
+    }
+    
     async retrieveSubscription(subscriptionId: string): Promise<Stripe.Subscription> {
         return await this.stripe.subscriptions.retrieve(subscriptionId);
     }

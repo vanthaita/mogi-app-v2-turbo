@@ -1,43 +1,65 @@
-import { Controller, Post, Req, Res, HttpException, HttpStatus } from '@nestjs/common';
-import { Request, Response } from 'express';
+import {
+    Controller,
+    Post,
+    Req,
+    Res,
+    Headers,
+    HttpException,
+    HttpStatus,
+    Body,
+  } from '@nestjs/common';
+  import { Request, Response } from 'express';
+  import Stripe from 'stripe';
 import { StripeService } from './stripe.service';
-import Stripe from 'stripe';
-
-@Controller('webhook')
-export class StripeWebhookController {
-    constructor(private readonly stripeService: StripeService) {}
+  
+  @Controller('webhook')
+  export class StripeWebhookController {
     
+    private stripe: Stripe;
+    private endpointSecret = 'whsec_1246cae6acaf2dc45ff5901d5c89bd5f3cabbff92dc1a79b1847e9db1bde8309';
+  
+    constructor(
+        private readonly stripeService: StripeService,
+    ) {
+        this.stripe = new Stripe(process.env.STRIPE_API_KEY, {
+        apiVersion: "2024-10-28.acacia"
+      });
+    }
+  
     @Post()
-    async handleWebhook(@Req() req: Request, @Res() res: Response) {
-        const signature = req.headers['stripe-signature'];
+    async handleWebhook(
+        @Body() body: Buffer,
+        @Res() response: Response,
+        @Headers('stripe-signature') signature: string,
+    ) {
         let event: Stripe.Event;
 
         try {
-            event = this.stripeService.constructEvent(req.body, signature as string);
-            console.log('Event constructed successfully:', event);
+        // Verify webhook signature using the raw body
+        event = this.stripe.webhooks.constructEvent(
+            body,
+            signature,
+            this.endpointSecret,
+        );
         } catch (err) {
-            console.error('Error validating Stripe webhook signature:', err.message);
-            throw new HttpException('Webhook signature verification failed.', HttpStatus.BAD_REQUEST);
+            console.error(`Webhook signature verification failed: ${err.message}`);
+            throw new HttpException(`Webhook Error: ${err.message}`, HttpStatus.BAD_REQUEST);
         }
 
-        // Handle the event
-        try {
-            switch (event.type) {
-                case 'checkout.session.completed':
-                    await this.stripeService.handleCheckoutSessionCompleted(event);
-                    break;
-                case 'invoice.payment_succeeded':
-                    await this.stripeService.handleInvoicePaymentSucceeded(event);
-                    break;
-                default:
-                    console.log(`Unhandled event type ${event.type}`);
-            }
-
-            // Acknowledge the event
-            res.json({ received: true });
-        } catch (error) {
-            console.error('Error handling the event:', error.message);
-            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ error: 'Failed to process event' });
+        // Handle the Stripe event type
+        switch (event.type) {
+            case 'checkout.session.completed':
+                await this.stripeService.handleCheckoutSessionCompleted(event);
+                break;
+            case 'invoice.payment_succeeded':
+                await this.stripeService.handleInvoicePaymentSucceeded(event);
+                break
+        default:
+            console.log(`Unhandled event type: ${event.type}`);
         }
+
+        // Respond with HTTP 200 status code to acknowledge receipt
+        response.send({ received: true });
     }
 }
+  

@@ -4,8 +4,6 @@ import { StripeController } from './stripe.controller';
 import { StripeService } from './stripe.service';
 import { StripeWebhookController } from './stripe.webhook.controller';
 import { PrismaService } from '../prisma.service';
-import { RawBodyMiddleware } from 'src/middleware/RawBodyMiddleware.middleware';
-import { StripeWebhookModule } from './stripe.webhook.module';
 
 @Module({
     imports: [ConfigModule.forRoot()],
@@ -19,7 +17,6 @@ import { StripeWebhookModule } from './stripe.webhook.module';
                 configService.get('STRIPE_API_KEY'),
             inject: [ConfigService],
         },
-        RawBodyMiddleware,
     ],
 })
 export class StripeModule {}

@@ -133,16 +133,18 @@ export class AuthService {
         return await this.prismaService.user.findUnique({
             where: { email },
             select: {
-            id: true,
-            name: true,
-            email: true,
-            picture: true,
-            providerId: true,
-            familyName: true,
-            givenName: true,
-            createdAt: true,
-            updatedAt: true,
-            // No need to include passwordHash and refreshToken here
+                id: true,
+                name: true,
+                email: true,
+                picture: true,
+                providerId: true,
+                familyName: true,
+                givenName: true,
+                createdAt: true,
+                updatedAt: true,
+                stripeCustomerId: true,
+                stripeSubscription: true,
+                subscriptionHistory: true,
             },
         });
         } catch (error) {

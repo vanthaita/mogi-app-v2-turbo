@@ -1,3 +1,24 @@
+export interface StripeSubscription {
+    id: string;
+    userId: string;
+    stripeCustomerId: string;
+    stripeSubscriptionId: string;
+    status: string;
+    currentPeriodStart: string;
+    currentPeriodEnd: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
+export interface SubscriptionHistory {
+    id: string;
+    userId: string;
+    subscriptionId: string;
+    action: string;
+    status: string;
+    timestamp: string;
+}
+
 export interface InterviewQuestion {
     question: string;
     answer: string;
@@ -14,7 +35,6 @@ export interface RecordAnswerSectionProps {
     interviewData: any;
 }
 
-
 export interface FeedBackData {
     id: string;
     mockId: string;
@@ -28,16 +48,15 @@ export interface FeedBackData {
     updatedAt: Date;
 }
 
-
 export interface InterViewData {
     id: string;
     jobDesc: string;
     jobExperience: string;
     jobPosition: string;
     jsonMockResp: string;
-    companyInfo?:   String;
-    interviewLanguage?: String;
-    additionalDetails?: String;
+    companyInfo?: string;
+    interviewLanguage?: string;
+    additionalDetails?: string;
     userId: string;
     mockId?: string;
     createdAt?: Date;
@@ -51,7 +70,6 @@ export interface FeedbackItemProps {
     getUserAnswerColor: (rating: number) => string;
 }
 
-
 export interface User {
     id: string;
     name: string;
@@ -60,13 +78,17 @@ export interface User {
     email: string;
     providerId: string;
     picture: string;
+    stripeCustomerId: string;
+    stripeSubscription: StripeSubscription;
+    subscriptionHistory: SubscriptionHistory[];
     createdAt: Date;
     updatedAt: Date;
 }
+
 export interface AuthContextProps {
     user: User | null;
     token: string;
-    setToken: (value: string) => void
+    setToken: (value: string) => void;
     isLoggedIn: boolean;
     logout: () => void;
     setUser: (user: User) => void;

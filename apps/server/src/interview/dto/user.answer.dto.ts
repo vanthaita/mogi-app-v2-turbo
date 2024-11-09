@@ -7,4 +7,5 @@ export class AnswerQuestionDto {
   feedback?: string;
   rating?: string;
   userId: string;
+  model?: string;
 }

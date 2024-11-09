@@ -17,13 +17,10 @@ export default function AuthLayout({
           <div className="flex-1 flex flex-col overflow-y-auto">
               <Topbar />
               <div className="md:p-8 flex-1 md:mb-0 mb-8">
-                <Suspense fallback={<Loading />}>
                     {children}
-                </Suspense>
                 <ToastContainer />
               </div>
           </div>
       </div>
-    
   );
 }

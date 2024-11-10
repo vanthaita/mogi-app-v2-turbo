@@ -61,7 +61,9 @@ model MockInterview {
   companyInfo       String?
   interviewLanguage String?
   additionalDetails String?
-  is_public         Boolean?  @default(false)
+  companyLogoUrl    String?
+  companyName       String?
+  is_public         Boolean?     @default(false)
   createdAt         DateTime     @default(now())
   updatedAt         DateTime     @updatedAt
   userId            String

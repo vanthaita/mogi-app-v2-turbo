@@ -5,7 +5,10 @@ import {
   Param,
   Post,
   Query,
+  Req,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { InterviewService } from './interview.service';
 import { InterviewDto } from './dto/interview.dto';
@@ -14,6 +17,7 @@ import { AuthGuard as JWTAuthGuard } from 'src/auth/auth.guard';
 import { AnswerQuestionDto } from './dto/user.answer.dto';
 import { SearchMockInterviewDto } from './dto/search.dto';
 import { ConfigService } from '@nestjs/config/dist/config.service';
+import { FileInterceptor } from '@nestjs/platform-express';
 @Controller('interview')
 @UseGuards(JWTAuthGuard)
 export class InterviewController {
@@ -27,13 +31,19 @@ export class InterviewController {
         console.log('Received searchDto:', searchDto);
         return this.interviewService.searchMockInterview(searchDto);
     }
+    @UseInterceptors(FileInterceptor('file'))
     @Post('create-template')
-    async createMockInterviewTemplate(@Body() interviewDto: InterviewDto) {
-        
-        
-        
+    async createMockInterviewTemplate(
+        @Body() interviewDto: InterviewDto,
+        @UploadedFile() file: Express.Multer.File,
+    ) {
+        interviewDto.isPublic = interviewDto.isPublic === 'true';
+        if(interviewDto.jsonMockResp === '') {
+            throw new Error('Invalid JSON Mock Response');
+        }
+        const saveTemplateInterview = await this.interviewService.createMockInterviewTemplate(interviewDto, file);
+        return { templateId: saveTemplateInterview }
     }
-    
     @Post('create')
     async saveInterviewData(@Body() interviewDto: InterviewDto) {
         const InputPromptTemplate = this.configService.get<string>('INPUT_PROMPT');

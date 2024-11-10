@@ -7,6 +7,7 @@ import { PrismaService } from './prisma.service';
 import { PrismaModule } from './prisma.module';
 import { StripeModule } from './stripe/stripe.module';
 import { StripeWebhookModule } from './stripe/stripe.webhook.module';
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
 @Module({
   imports: [
     UserModule,
@@ -15,6 +16,7 @@ import { StripeWebhookModule } from './stripe/stripe.webhook.module';
     PrismaModule,
     StripeWebhookModule,
     StripeModule,
+    CloudinaryModule,
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',

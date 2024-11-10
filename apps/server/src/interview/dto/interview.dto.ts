@@ -7,4 +7,6 @@ export class InterviewDto {
   companyInfo?: string;
   interviewLanguage?: string;
   additionalDetails?: string;
+  isPublic?: boolean | string;
+  model?: string;
 }

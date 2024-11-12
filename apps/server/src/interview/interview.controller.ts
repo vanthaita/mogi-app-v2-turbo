@@ -18,6 +18,7 @@ import { AnswerQuestionDto } from './dto/user.answer.dto';
 import { SearchMockInterviewDto } from './dto/search.dto';
 import { ConfigService } from '@nestjs/config/dist/config.service';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { checkQuestionType } from 'src/utils/check.types.questions';
 @Controller('interview')
 @UseGuards(JWTAuthGuard)
 export class InterviewController {
@@ -25,7 +26,7 @@ export class InterviewController {
         private readonly interviewService: InterviewService,
         private readonly configService: ConfigService
     ) {}
-
+    
     @Get('search')
     async searchMockInterview(@Query() searchDto: SearchMockInterviewDto) {
         console.log('Received searchDto:', searchDto);
@@ -38,8 +39,10 @@ export class InterviewController {
         @UploadedFile() file: Express.Multer.File,
     ) {
         interviewDto.isPublic = interviewDto.isPublic === 'true';
-        if(interviewDto.jsonMockResp === '') {
-            throw new Error('Invalid JSON Mock Response');
+        console.log("This is: ", interviewDto)
+        const isValidType = checkQuestionType(interviewDto.jsonMockResp);
+        if (isValidType) {
+            throw new Error('Invalid question type detected');
         }
         const saveTemplateInterview = await this.interviewService.createMockInterviewTemplate(interviewDto, file);
         return { templateId: saveTemplateInterview }
@@ -59,9 +62,16 @@ export class InterviewController {
         .replace('{{additionalDetails}}', interviewDto.additionalDetails);
         const res = await chatSession.sendMessage(InputPrompt);
         const MockJsonResponse = res.response.text();
+        const isValidType = checkQuestionType(MockJsonResponse);
+        console.log('Received Mock JSON Response:', MockJsonResponse);
+        console.log(isValidType);
+        if (isValidType) {
+            throw new Error('Invalid question type detected');
+        }
+        
         const saveInterviewResponse = await this.interviewService.saveInterview({
-        ...interviewDto,
-        jsonMockResp: MockJsonResponse,
+            ...interviewDto,
+            jsonMockResp: MockJsonResponse,
         });
         return { interviewId: saveInterviewResponse };
     }

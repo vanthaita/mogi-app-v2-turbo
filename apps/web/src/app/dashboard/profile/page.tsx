@@ -19,6 +19,7 @@ const ProfilePage = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
     const [imageFile, setImageFile] = useState<File | null>(null);
+    const [previewImage, setPreviewImage] = useState<string | null>(null);
 
     useEffect(() => {
         if (user) {
@@ -39,7 +40,12 @@ const ProfilePage = () => {
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
-            setImageFile(file); 
+            setImageFile(file);
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreviewImage(reader.result as string);
+            };
+            reader.readAsDataURL(file);
         }
     };
 
@@ -51,7 +57,7 @@ const ProfilePage = () => {
         formDataToSend.append('name', formData.name);
 
         if (imageFile) {
-            formDataToSend.append('file', imageFile);  // Ensure the key matches 'file' from backend.
+            formDataToSend.append('file', imageFile);
         }
 
         try {
@@ -83,18 +89,26 @@ const ProfilePage = () => {
                     {successMessage}
                 </div>
             )}
-            <div className="flex justify-start items-center gap-4">
-                <Avatar>
-                    <AvatarImage src={user?.picture || '/avatar.svg'} />
-                    <AvatarFallback>SB</AvatarFallback>
-                </Avatar>
-                <p className="underline text-blue-500 cursor-pointer">Change image</p>
-                <input
-                    type="file"
-                    onChange={handleImageChange}
-                    accept="image/*"
-                    className="mt-2"
-                />
+            <div className="flex flex-col md:flex-row justify-start items-center gap-4 mb-6">
+                <div className="relative group cursor-pointer">
+                    <Avatar className="w-24 h-24">
+                        <AvatarImage src={previewImage || user?.picture || '/avatar.svg'} />
+                        <AvatarFallback>SB</AvatarFallback>
+                    </Avatar>
+                    <label
+                        htmlFor="image-upload"
+                        className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white font-medium rounded-full cursor-pointer"
+                    >
+                        Change
+                    </label>
+                    <input
+                        id="image-upload"
+                        type="file"
+                        onChange={handleImageChange}
+                        accept="image/*"
+                        className="hidden"
+                    />
+                </div>
             </div>
             <form className="mt-6 space-y-4">
                 <div>

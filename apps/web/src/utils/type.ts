@@ -55,12 +55,14 @@ export interface InterViewData {
     jobPosition: string;
     jsonMockResp: string;
     companyInfo?: string;
+    companyLogoUrl?: string;
     interviewLanguage?: string;
     additionalDetails?: string;
     userId: string;
     mockId?: string;
     createdAt?: Date;
     updatedAt?: Date;
+
 }
 
 export interface FeedbackItemProps {
@@ -103,3 +105,11 @@ export type FormDataType = {
     interviewLanguage: string;
     additionalDetails: string;
 };
+export interface TemplateFormDataType extends FormDataType {
+    jsonMockResp?: string;
+    isPublic?: boolean;
+}
+export type QuestionType = {
+    question: string;
+    answer: string;
+  };

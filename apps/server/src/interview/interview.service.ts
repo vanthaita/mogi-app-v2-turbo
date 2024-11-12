@@ -175,10 +175,11 @@ export class InterviewService {
         const [mockInterviews, totalCount] = await Promise.all([
         this.prismaService.mockInterview.findMany({
             where: {
-            jobPosition: {
-                contains: jobPosition || '',
-                mode: 'insensitive',
-            },
+                jobPosition: {
+                    contains: jobPosition || '',
+                    mode: 'insensitive',
+                },
+                is_public: true
             },
             skip: (page - 1) * limit,
             take: limit,
@@ -193,10 +194,10 @@ export class InterviewService {
         }),
         ]);
         return {
-        mockInterviews,
-        totalCount,
-        totalPages: Math.ceil(totalCount / limit),
-        currentPage: page,
+            mockInterviews,
+            totalCount,
+            totalPages: Math.ceil(totalCount / limit),
+            currentPage: page,
         };
     }
     async GetAllInterviewData({ userId }: { userId: string }) {

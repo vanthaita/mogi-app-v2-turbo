@@ -102,7 +102,7 @@ const AddNewInterview = () => {
             <ContextMenuTrigger className="flex h-[150px] w-full cursor-pointer items-center justify-center rounded-md border border-dashed border-border text-sm">
                 <div className='flex justify-center items-center gap-x-2'>
                 <Plus />
-                <span className='text-lg font-medium'>Add New</span>
+                <span className='text-lg font-medium'>Add New Interview</span>
                 </div>
             </ContextMenuTrigger>
             </ContextMenu>

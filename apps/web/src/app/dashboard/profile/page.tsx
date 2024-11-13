@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/context/auth.context';
 import { Button } from '@/components/ui/button';
@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import axiosInstance from '@/helper/axios';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Edit, Loader, Save, X } from 'lucide-react';
 
 const ProfilePage = () => {
     const { user } = useAuth();
@@ -15,11 +16,13 @@ const ProfilePage = () => {
         name: '',
         email: '',
         providerId: '',
+        // personalInfo: '',
     });
     const [isLoading, setIsLoading] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
     const [imageFile, setImageFile] = useState<File | null>(null);
     const [previewImage, setPreviewImage] = useState<string | null>(null);
+    const [cvFile, setCvFile] = useState<File | null>(null);
 
     useEffect(() => {
         if (user) {
@@ -29,11 +32,12 @@ const ProfilePage = () => {
                 name: user?.name || '',
                 email: user?.email || '',
                 providerId: user?.providerId || '',
+                // personalInfo: user?.personalInfo || '',
             });
         }
     }, [user]);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFormData({ ...formData, [e.target.id]: e.target.value });
     };
 
@@ -49,15 +53,24 @@ const ProfilePage = () => {
         }
     };
 
+    const handleCvChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) setCvFile(file);
+    };
+
     const handleSaveChanges = async () => {
         setIsLoading(true);
         const formDataToSend = new FormData();
         formDataToSend.append('familyName', formData.familyName);
         formDataToSend.append('givenName', formData.givenName);
         formDataToSend.append('name', formData.name);
+        // formDataToSend.append('personalInfo', formData.personalInfo);
 
         if (imageFile) {
-            formDataToSend.append('file', imageFile);
+            formDataToSend.append('profileImage', imageFile);
+        }
+        if (cvFile) {
+            formDataToSend.append('cv', cvFile);
         }
 
         try {
@@ -79,7 +92,12 @@ const ProfilePage = () => {
     };
 
     if (!user) {
-        return <p>Loading...</p>;
+        return (
+            <div className="flex items-center justify-center h-full">
+                <Loader className="animate-spin text-black" size={48} /> 
+                <p className="ml-2 text-lg font-medium text-gray-600">Loading Profile...</p>
+            </div>
+        );
     }
 
     return (
@@ -99,7 +117,7 @@ const ProfilePage = () => {
                         htmlFor="image-upload"
                         className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white font-medium rounded-full cursor-pointer"
                     >
-                        Change
+                        <Edit size={20} className="mr-2" /> Change
                     </label>
                     <input
                         id="image-upload"
@@ -169,11 +187,42 @@ const ProfilePage = () => {
                         className="w-full mt-1 p-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 focus:ring-blue-300"
                     />
                 </div>
+
+                {/* <div>
+                    <Label className="block text-sm font-medium text-gray-700" htmlFor="personalInfo">
+                        Personal Information
+                    </Label>
+                    <textarea
+                        id="personalInfo"
+                        value={formData.personalInfo}
+                        onChange={handleChange}
+                        className="w-full mt-1 p-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 focus:ring-blue-300"
+                    />
+                </div> */}
+
+                <div>
+                    <Label className="block text-sm font-medium text-gray-700" htmlFor="cv-upload">
+                        Upload CV/Resume
+                    </Label>
+                    <input
+                        id="cv-upload"
+                        type="file"
+                        onChange={handleCvChange}
+                        accept=".pdf,.doc,.docx"
+                        className="w-full mt-1 p-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 focus:ring-blue-300"
+                    />
+                </div>
             </form>
             <div className="mt-6 flex justify-end gap-4">
-                <Button className="px-4 py-2 border rounded-md text-gray-600">Cancel</Button>
-                <Button className="px-4 py-2 bg-black text-white rounded-md" disabled={isLoading} onClick={handleSaveChanges}>
-                    {isLoading ? 'Loading...' : 'Save changes'}
+                <Button className="px-4 py-2 border rounded-md text-gray-600 flex items-center">
+                    <X size={20} className="mr-2" /> Cancel
+                </Button>
+                <Button
+                    className="px-4 py-2 bg-black text-white rounded-md flex items-center"
+                    disabled={isLoading}
+                    onClick={handleSaveChanges}
+                >
+                    {isLoading ? 'Loading...' : <Save size={20} className="mr-2" />} Save changes
                 </Button>
             </div>
         </div>

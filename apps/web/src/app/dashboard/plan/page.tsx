@@ -7,16 +7,43 @@ import { ArrowUpRight, Download } from "lucide-react";
 import { useAuth } from '@/context/auth.context';
 import axiosInstance from '@/helper/axios';
 import { SubscriptionHistory } from '@/utils/type';
+import { useRouter } from 'next/navigation';
+import { loadStripe } from '@stripe/stripe-js';
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string);
 
 const PlanPage = () => {
-    const { user } = useAuth();
+    const { user,isLoggedIn } = useAuth();
     const stripeSubscription = user?.stripeSubscription || null; 
     const subscriptionHistory: SubscriptionHistory[] = user?.subscriptionHistory || [];
-
+    const [loading, setLoading] = useState<boolean>(false);
+    const router = useRouter();
     const currentPlan = {
-        name: "Premium Plan",
-        price: "$10", 
+        name: stripeSubscription ? "Premium Plan" : "Free Plan",
+        price: stripeSubscription ? "$10" : '0$', 
         status: stripeSubscription?.status || "Active"
+    };
+    const handlePremiumPlanClick = async () => {
+        if (!isLoggedIn) {
+            return router.push('/sign-in');
+        }
+        setLoading(true);
+        try {
+            const { data } = await axiosInstance.post('/stripe/create-subscription-session', {
+                email: user?.email,
+                name: user?.name,
+            });
+            const stripe = await stripePromise;
+            if (stripe) {
+                const { error } = await stripe.redirectToCheckout({ sessionId: data.sessionId });
+                if (error) console.error(error.message);
+            } else {
+                console.error("Stripe failed to initialize.");
+            }
+        } catch (error) {
+            console.error('Error creating subscription:', error);
+        } finally {
+            setLoading(false);
+        }
     };
     const createAndLinkToCustomerPortal = async () => {
         try {
@@ -29,7 +56,7 @@ const PlanPage = () => {
             console.error("Error linking to customer portal", error);
         }
     };
-    const isFreePlan = stripeSubscription?.status === null;
+    const isFreePlan = !stripeSubscription;
     return (
         <div className="p-6 bg-gray-50 min-h-screen">
         <div className="max-w-9xl mx-auto">
@@ -49,7 +76,7 @@ const PlanPage = () => {
                         </p>
                     </div>
                     {isFreePlan ? (
-                        <Button className="ml-4 px-6 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors duration-200 flex items-center">
+                        <Button className="ml-4 px-6 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors duration-200 flex items-center" onClick={handlePremiumPlanClick}>
                             <ArrowUpRight className="mr-2 h-5 w-5" /> Upgrade Plan
                         </Button>
                     ) : 

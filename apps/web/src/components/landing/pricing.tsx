@@ -54,6 +54,9 @@ const Pricing: React.FC = () => {
     const router = useRouter();
 
     const handleFreePlanClick = () => {
+        if (!isLoggedIn) {
+            return router.push('/sign-in');
+        }
         alert('You selected the Free Plan!');
     };
 

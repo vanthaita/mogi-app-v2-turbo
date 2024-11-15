@@ -39,7 +39,7 @@ export class InterviewController {
         @UploadedFile() file: Express.Multer.File,
     ) {
         interviewDto.isPublic = interviewDto.isPublic === 'true';
-        console.log("This is: ", interviewDto)
+        // console.log("This is: ", interviewDto)
         const isValidType = checkQuestionType(interviewDto.jsonMockResp);
         if (isValidType) {
             throw new Error('Invalid question type detected');
@@ -63,8 +63,8 @@ export class InterviewController {
         const res = await chatSession.sendMessage(InputPrompt);
         const MockJsonResponse = res.response.text();
         const isValidType = checkQuestionType(MockJsonResponse);
-        console.log('Received Mock JSON Response:', MockJsonResponse);
-        console.log(isValidType);
+        // console.log('Received Mock JSON Response:', MockJsonResponse);
+        // console.log(isValidType);
         if (isValidType) {
             throw new Error('Invalid question type detected');
         }

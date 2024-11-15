@@ -7,25 +7,25 @@ import { removeTokenFromCookies } from '@/app/action/storeToken';
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const fetchProfileOnce = async (token: string) => {
-  try {
-    if(!token) {
-      return;
-    }
-    const res = await axiosInstance.get('/auth/profile', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    if (res.status !== 200) {
-      throw new Error('Failed to fetch user profile');
-    }
+    try {
+        if(!token) {
+        return;
+        }
+        const res = await axiosInstance.get('/auth/profile', {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+        });
+        if (res.status !== 200) {
+        throw new Error('Failed to fetch user profile');
+        }
 
-    const userProfile = res.data;
-    return userProfile;
-  } catch (error) {
-    console.error('Error fetching profile:', error);
-    return null;
-  }
+        const userProfile = res.data;
+        return userProfile;
+    } catch (error) {
+        console.error('Error fetching profile:', error);
+        return null;
+    }
 };
 
 

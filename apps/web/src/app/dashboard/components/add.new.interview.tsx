@@ -50,25 +50,25 @@ const AddNewInterview = () => {
         }));
     };
 
-    const handleSelectChange = (value: string) => {
-        const isPremiumModel = [
-            'mistral',
-            'openai_gpt4o',
-            'cohere_command_r_plus',
-            'claude_35_sonnet',
-            'microsoft_wizardlm2',
-            'meta_llama'
-        ].includes(value);
+    // const handleSelectChange = (value: string) => {
+    //     const isPremiumModel = [
+    //         'mistral',
+    //         'openai_gpt4o',
+    //         'cohere_command_r_plus',
+    //         'claude_35_sonnet',
+    //         'microsoft_wizardlm2',
+    //         'meta_llama'
+    //     ].includes(value);
     
-        if (isPremiumModel && (!user?.stripeSubscription || user.stripeSubscription.status !== 'active')) {
-            alert('This model requires a premium subscription.');
-            return;
-        }
-        setFormData((prev) => ({
-            ...prev,
-            model: value,
-        }));
-    };
+    //     if (isPremiumModel && (!user?.stripeSubscription || user.stripeSubscription.status !== 'active')) {
+    //         alert('This model requires a premium subscription.');
+    //         return;
+    //     }
+    //     setFormData((prev) => ({
+    //         ...prev,
+    //         model: value,
+    //     }));
+    // };
     
 
     const handleSubmit = async () => {
@@ -134,7 +134,7 @@ const AddNewInterview = () => {
                     </div>
                     ))}
                     <Label htmlFor='Model' className=''>Model</Label>
-                    <Select onValueChange={handleSelectChange}>
+                    <Select onValueChange={() => {}}>
                         <SelectTrigger className="w-full">
                             <SelectValue placeholder="Select Model" />
                         </SelectTrigger>

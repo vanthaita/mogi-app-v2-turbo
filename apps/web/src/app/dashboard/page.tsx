@@ -11,7 +11,7 @@ const DashboardPage = () => {
   return (
     <div className='p-8 relative h-auto'>
         <div className="flex-1 h-[35%] ">
-           <div className='flex gap-x-8'>
+           <div className='flex md:flex-row flex-col gap-x-8'>
                 <div>
                     <div className='flex items-center space-x-2'>
                         <FaPlusCircle className="text-xl mt-1" />

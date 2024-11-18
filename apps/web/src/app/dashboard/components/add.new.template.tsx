@@ -119,7 +119,7 @@ const AddNewTemplate: React.FC = () => {
                 </ContextMenu>
             </div>
             <Dialog open={isDialogOpen} onOpenChange={setDialogOpen}>
-                <DialogContent className='max-w-6xl'>
+                <DialogContent className='max-w-6xl max-h-[90vh] overflow-y-auto'>
                     <DialogHeader>
                         <DialogTitle>Create New Interview Template</DialogTitle>
                         <DialogDescription>Fill in the details below to create a new template.</DialogDescription>
@@ -198,9 +198,9 @@ const AddNewTemplate: React.FC = () => {
                         </div>
 
                     </div>
-                    <DialogFooter className='flex justify-between items-center'>
+                    <DialogFooter className='flex justify-end items-center flex-row gap-x-4'>
                         <Button onClick={() => setDialogOpen(false)}>Close</Button>
-                        <Button onClick={handleSubmit} disabled={loading}>
+                        <Button onClick={handleSubmit} disabled={loading} className='bg-black text-white'>
                             {loading ? <Loader2 className="animate-spin" /> : 'Create Template'}
                         </Button>
                     </DialogFooter>

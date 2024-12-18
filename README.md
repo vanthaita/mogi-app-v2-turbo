@@ -1,8 +1,7 @@
 <details>
-<summary>Englist</summary>
+<summary>English</summary>
 
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/b8f1965b-8f8a-49c9-856c-193359a36a32" alt="Mogi Logo" width="200"/>
   <h1>Mogi - AI Mock Interview SaaS</h1>
 </div>
 
@@ -121,7 +120,7 @@ Mogi leverages the power of AI to simulate realistic job interviews, giving user
 <div style="background-color: #f0f0f0; padding: 15px; border-radius: 5px; margin-top: 20px;">
 This project is under the MIT license.
 </div>
-<details/>
+</details>
 
 
 <details>

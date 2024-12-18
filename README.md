@@ -62,7 +62,7 @@ Mogi leverages the power of AI to simulate realistic job interviews, giving user
 <div style="background-color: #e8f0fe; padding: 15px; border-radius: 5px; margin-top: 20px;">
   <ul>
       <li><strong>Frontend:</strong> Next.js, TypeScript, Tailwind CSS</li>
-      <li><strong>Backend:</strong> Prisma, Neon, Gemini API</li>
+      <li><strong>Backend:</strong>Nestjs, Prisma, Neon, Gemini API</li>
     </ul>
 </div>
 
@@ -187,7 +187,7 @@ Mogi は AI の力を活用して現実的な就職面接をシミュレート�
 <div style="background-color: #e8f0fe; padding: 15px; border-radius: 5px; margin-top: 20px;">
   <ul>
       <li><strong>フロントエンド:</strong> Next.js, TypeScript, Tailwind CSS</li>
-      <li><strong>バックエンド:</strong> Prisma, Neon, Gemini API</li>
+      <li><strong>バックエンド:</strong>Nestjs, Prisma, Neon, Gemini API</li>
   </ul>
 </div>
 
@@ -313,7 +313,7 @@ Mogi tận dụng sức mạnh của AI để mô phỏng các cuộc phỏng v�
 <div style="background-color: #e8f0fe; padding: 15px; border-radius: 5px; margin-top: 20px;">
   <ul>
     <li><strong>Frontend:</strong> Next.js, TypeScript, Tailwind CSS</li>
-    <li><strong>Backend:</strong> Prisma, Neon, Gemini API</li>
+    <li><strong>Backend:</strong>Nestjs, Prisma, Neon, Gemini API</li>
   </ul>
 </div>
 

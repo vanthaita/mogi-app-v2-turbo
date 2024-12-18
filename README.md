@@ -1,7 +1,18 @@
+<details>
+<summary>Englist</summary>
 
-# Mogi - AI Mock Interview SaaS
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/b8f1965b-8f8a-49c9-856c-193359a36a32" alt="Mogi Logo" width="200"/>
+  <h1>Mogi - AI Mock Interview SaaS</h1>
+</div>
 
-Mogi is a web-based SaaS application designed to help users improve their interview skills through AI-driven mock interviews. Built with Next.js, TypeScript, Tailwind CSS, Prisma, Neon, and the Gemini API, Mogi provides personalized feedback to support users on their journey to success.
+<hr style="border: 1px solid #ddd; margin: 20px 0;">
+
+<div style="background-color: #f9f9f9; padding: 20px; border-radius: 8px;">
+  <p style="font-size: 1.1em;">
+    Mogi is a web-based SaaS application designed to help users improve their interview skills through AI-driven mock interviews. Built with Next.js, TypeScript, Tailwind CSS, Prisma, Neon, and the Gemini API, Mogi provides personalized feedback to support users on their journey to success.
+  </p>
+</div>
 
 ## Overview
 
@@ -12,15 +23,19 @@ Mogi leverages the power of AI to simulate realistic job interviews, giving user
   <img src="https://github.com/user-attachments/assets/c595ae1c-e602-4dbb-a91c-8880b66917f2" alt="Mogi Sign Up Page" width="400"/>
 </p>
 
-## Key Features
+<div style="background-color: #e8f0fe; padding: 15px; border-radius: 5px; margin-top: 20px;">
+  <h2>Key Features</h2>
+  <ul>
+    <li><strong>AI-Powered Mock Interviews:</strong> Practice with realistic interview simulations powered by AI.</li>
+    <li><strong>Customizable Interviews:</strong> Adjust settings such as job role, tech stack, and experience level.</li>
+    <li><strong>AI-Generated Questions:</strong> Receive relevant interview questions tailored to your specifications.</li>
+    <li><strong>Real-time Feedback:</strong> Get instant insights and recommendations to improve your performance.</li>
+    <li><strong>Custom Templates:</strong> Create and save custom interview templates.</li>
+    <li><strong>Easy Sign-Up and Login:</strong> Quickly create an account or log in with existing credentials.</li>
+    <li><strong>User-Friendly Interface:</strong> Enjoy a seamless and intuitive user experience.</li>
+  </ul>
+</div>
 
-*   **AI-Powered Mock Interviews:** Practice with realistic interview simulations powered by AI.
-*   **Customizable Interviews:** Adjust settings such as job role, tech stack, and experience level.
-*   **AI-Generated Questions:** Receive relevant interview questions tailored to your specifications.
-*   **Real-time Feedback:** Get instant insights and recommendations to improve your performance.
-*   **Custom Templates:** Create and save custom interview templates.
-*   **Easy Sign-Up and Login:** Quickly create an account or log in with existing credentials.
-*   **User-Friendly Interface:** Enjoy a seamless and intuitive user experience.
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/62bf9272-ad56-491d-a3f9-06308f04233b" alt="Mogi Dashboard Page" width="400"/>
@@ -29,10 +44,14 @@ Mogi leverages the power of AI to simulate realistic job interviews, giving user
 
 ## How to Use
 
-1.  **Sign Up/Login:** Access the registration page and create a new account or log in with an existing one.
-2.  **Create New Interview:** Click the "Add new interview" button and provide details about the job you are applying for, necessary skills, years of experience, and other information.
-3.  **Start Interview:** Select the interview you want and start it. Questions will be presented one by one.
-4.  **Receive Feedback:** After finishing the interview, you will receive a detailed evaluation of your responses, helping you improve your interview skills.
+<div style="background-color: #f0f0f0; padding: 15px; border-radius: 5px; margin-top: 20px;">
+  <ol>
+    <li><strong>Sign Up/Login:</strong> Access the registration page and create a new account or log in with an existing one.</li>
+    <li><strong>Create New Interview:</strong> Click the "Add new interview" button and provide details about the job you are applying for, necessary skills, years of experience, and other information.</li>
+    <li><strong>Start Interview:</strong> Select the interview you want and start it. Questions will be presented one by one.</li>
+    <li><strong>Receive Feedback:</strong> After finishing the interview, you will receive a detailed evaluation of your responses, helping you improve your interview skills.</li>
+  </ol>
+</div>
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/1be80bf6-3a15-472a-88a8-ab9ef4daf526" alt="Mogi Interview Questions" width="400"/>
@@ -41,8 +60,12 @@ Mogi leverages the power of AI to simulate realistic job interviews, giving user
 
 ## Technologies Used
 
-*   **Frontend:** Next.js, TypeScript, Tailwind CSS
-*   **Backend:** Prisma, Neon, Gemini API
+<div style="background-color: #e8f0fe; padding: 15px; border-radius: 5px; margin-top: 20px;">
+  <ul>
+      <li><strong>Frontend:</strong> Next.js, TypeScript, Tailwind CSS</li>
+      <li><strong>Backend:</strong> Prisma, Neon, Gemini API</li>
+    </ul>
+</div>
 
 ## Demo
 
@@ -55,36 +78,33 @@ Mogi leverages the power of AI to simulate realistic job interviews, giving user
 
 ## Getting Started
 
-To run this project, you'll need Node.js and pnpm installed.
-
-1. Clone the repository
-
-   ```bash
-   git clone https://github.com/vanthaita/mogi-app-turbo.git
-   ```
-
-2. Navigate to the project directory
-
-   ```bash
-   cd mogi-app-turbo
-   ```
-
-3. Install dependencies
-
-   ```bash
-   pnpm install
-   ```
-
-4. Run the development server
-
-   ```bash
-   pnpm dev
-   ```
-5. Access the application through the provided URL.
-
-## Links
-
-[Github Repository](https://github.com/vanthaita/mogi-app-turbo)
+<div style="background-color: #f0f0f0; padding: 15px; border-radius: 5px; margin-top: 20px;">
+    To run this project, you'll need Node.js and pnpm installed.
+   <ol>
+    <li>Clone the repository
+    ```bash
+    git clone https://github.com/vanthaita/mogi-app-turbo.git
+    ```</li>
+    <li>Navigate to the project directory
+    ```bash
+    cd mogi-app-turbo
+    ```</li>
+    <li>Install dependencies
+    ```bash
+    pnpm install
+    ```</li>
+   <li>Run the development server
+    ```bash
+    pnpm dev
+    ```</li>
+    <li>Access the application through the provided URL.</li>
+  </ol>
+</div>
+<br>
+<div style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin-top: 20px;">
+  <h2>Links</h2>
+  <p><a href="https://github.com/vanthaita/mogi-app-turbo">Github Repository</a></p>
+</div>
 
 <p align="center">
 <img src="https://github.com/user-attachments/assets/b8f1965b-8f8a-49c9-856c-193359a36a32" alt="Mogi Home Page" width="400"/>
@@ -92,20 +112,33 @@ To run this project, you'll need Node.js and pnpm installed.
 
 ## Contributing
 
-If you want to contribute to this project, please fork the repository and create a pull request with your changes.
+<div style="background-color: #e8f0fe; padding: 15px; border-radius: 5px; margin-top: 20px;">
+    If you want to contribute to this project, please fork the repository and create a pull request with your changes.
+</div>
 
 ## License
 
+<div style="background-color: #f0f0f0; padding: 15px; border-radius: 5px; margin-top: 20px;">
 This project is under the MIT license.
+</div>
+<details/>
 
----
 
 <details>
 <summary>日本語</summary>
 
-# Mogi - AI 模擬面接 SaaS
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/b8f1965b-8f8a-49c9-856c-193359a36a32" alt="Mogi Logo" width="200"/>
+  <h1>Mogi - AI 模擬面接 SaaS</h1>
+</div>
 
-Mogi は、AI による模擬面接を通じてユーザーの面接スキル向上を支援するウェブベースの SaaS アプリケーションです。 Next.js, TypeScript, Tailwind CSS, Prisma, Neon, そして Gemini API を用いて構築され、Mogi はユーザーの成功への旅をサポートするためのパーソナライズされたフィードバックを提供します。
+<hr style="border: 1px solid #ddd; margin: 20px 0;">
+
+<div style="background-color: #f9f9f9; padding: 20px; border-radius: 8px;">
+  <p style="font-size: 1.1em;">
+    Mogi は、AI による模擬面接を通じてユーザーの面接スキル向上を支援するウェブベースの SaaS アプリケーションです。 Next.js, TypeScript, Tailwind CSS, Prisma, Neon, そして Gemini API を用いて構築され、Mogi はユーザーの成功への旅をサポートするためのパーソナライズされたフィードバックを提供します。
+  </p>
+</div>
 
 ## 概要
 
@@ -116,15 +149,18 @@ Mogi は AI の力を活用して現実的な就職面接をシミュレート�
 <img src="https://github.com/user-attachments/assets/c595ae1c-e602-4dbb-a91c-8880b66917f2" alt="Mogi Sign Up Page" width="400"/>
 </p>
 
-## 主な機能
-
-*   **AI による模擬面接:** AI を搭載した現実的な面接シミュレーションで練習します。
-*   **カスタマイズ可能な面接:** 職務、技術スタック、経験年数などの設定を調整します。
-*   **AI で生成された質問:** 仕様に合わせて調整された関連する面接の質問を受け取ります。
-*   **リアルタイムフィードバック:** パフォーマンスを向上させるためのインスタントな洞察と推奨事項を入手してください。
-*   **カスタムテンプレート:** カスタム面接テンプレートを作成して保存します。
-*   **簡単なサインアップとログイン:** すぐにアカウントを作成するか、既存の資格情報でログインします。
-*   **ユーザーフレンドリーなインターフェイス:** シームレスで直感的なユーザーエクスペリエンスをお楽しみください。
+<div style="background-color: #e8f0fe; padding: 15px; border-radius: 5px; margin-top: 20px;">
+  <h2>主な機能</h2>
+  <ul>
+    <li><strong>AI による模擬面接:</strong> AI を搭載した現実的な面接シミュレーションで練習します。</li>
+    <li><strong>カスタマイズ可能な面接:</strong> 職務、技術スタック、経験年数などの設定を調整します。</li>
+    <li><strong>AI で生成された質問:</strong> 仕様に合わせて調整された関連する面接の質問を受け取ります。</li>
+    <li><strong>リアルタイムフィードバック:</strong> パフォーマンスを向上させるためのインスタントな洞察と推奨事項を入手してください。</li>
+    <li><strong>カスタムテンプレート:</strong> カスタム面接テンプレートを作成して保存します。</li>
+    <li><strong>簡単なサインアップとログイン:</strong> すぐにアカウントを作成するか、既存の資格情報でログインします。</li>
+    <li><strong>ユーザーフレンドリーなインターフェイス:</strong> シームレスで直感的なユーザーエクスペリエンスをお楽しみください。</li>
+  </ul>
+</div>
 
 <p align="center">
 <img src="https://github.com/user-attachments/assets/62bf9272-ad56-491d-a3f9-06308f04233b" alt="Mogi Dashboard Page" width="400"/>
@@ -133,10 +169,14 @@ Mogi は AI の力を活用して現実的な就職面接をシミュレート�
 
 ## 使用方法
 
-1.  **サインアップ/ログイン:** 登録ページにアクセスして、新しいアカウントを作成するか、既存のアカウントでログインします。
-2.  **新しい面接を作成:** 「新しい面接を追加」ボタンをクリックし、応募する職種、必要なスキル、経験年数、その他の情報を提供します。
-3.  **面接を開始:** 目的の面接を選択し、開始します。質問が一つずつ表示されます。
-4.  **フィードバックを受け取る:** 面接終了後、回答の詳細な評価を受け、面接スキルを向上させることができます。
+<div style="background-color: #f0f0f0; padding: 15px; border-radius: 5px; margin-top: 20px;">
+  <ol>
+    <li><strong>サインアップ/ログイン:</strong> 登録ページにアクセスして、新しいアカウントを作成するか、既存のアカウントでログインします。</li>
+    <li><strong>新しい面接を作成:</strong> 「新しい面接を追加」ボタンをクリックし、応募する職種、必要なスキル、経験年数、その他の情報を提供します。</li>
+    <li><strong>面接を開始:</strong> 目的の面接を選択し、開始します。質問が一つずつ表示されます。</li>
+    <li><strong>フィードバックを受け取る:</strong> 面接終了後、回答の詳細な評価を受け、面接スキルを向上させることができます。</li>
+  </ol>
+</div>
 
 <p align="center">
 <img src="https://github.com/user-attachments/assets/1be80bf6-3a15-472a-88a8-ab9ef4daf526" alt="Mogi Interview Questions" width="400"/>
@@ -145,8 +185,12 @@ Mogi は AI の力を活用して現実的な就職面接をシミュレート�
 
 ## 使用技術
 
-*   **フロントエンド:** Next.js, TypeScript, Tailwind CSS
-*   **バックエンド:** Prisma, Neon, Gemini API
+<div style="background-color: #e8f0fe; padding: 15px; border-radius: 5px; margin-top: 20px;">
+  <ul>
+      <li><strong>フロントエンド:</strong> Next.js, TypeScript, Tailwind CSS</li>
+      <li><strong>バックエンド:</strong> Prisma, Neon, Gemini API</li>
+  </ul>
+</div>
 
 ## デモ
 
@@ -159,29 +203,37 @@ Mogi は AI の力を活用して現実的な就職面接をシミュレート�
 
 ## 始め方
 
-このプロジェクトを実行するには、Node.jsとpnpmがインストールされている必要があります。
-
-1. リポジトリをクローンする
-   ```bash
-   git clone https://github.com/vanthaita/mogi-app-turbo.git
-   ```
-2. プロジェクトディレクトリに移動する
-   ```bash
-   cd mogi-app-turbo
-   ```
-3. 依存関係をインストールする
-   ```bash
-   pnpm install
-   ```
-4. 開発サーバーを実行する
-    ```bash
-   pnpm dev
-   ```
-5. 提供されたURLからアプリケーションにアクセスします。
-
-## リンク
-
-[Github リポジトリ](https://github.com/vanthaita/mogi-app-turbo)
+<div style="background-color: #f0f0f0; padding: 15px; border-radius: 5px; margin-top: 20px;">
+    このプロジェクトを実行するには、Node.jsとpnpmがインストールされている必要があります。
+  <ol>
+    <li>リポジトリをクローンする
+     ```bash
+      git clone https://github.com/vanthaita/mogi-app-turbo.git
+     ```
+   </li>
+   <li>プロジェクトディレクトリに移動する
+      ```bash
+      cd mogi-app-turbo
+      ```
+   </li>
+    <li>依存関係をインストールする
+      ```bash
+       pnpm install
+      ```
+    </li>
+   <li>開発サーバーを実行する
+     ```bash
+      pnpm dev
+     ```
+    </li>
+    <li>提供されたURLからアプリケーションにアクセスします。</li>
+  </ol>
+</div>
+<br>
+<div style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin-top: 20px;">
+  <h2>リンク</h2>
+  <p><a href="https://github.com/vanthaita/mogi-app-turbo">Github リポジトリ</a></p>
+</div>
 
 <p align="center">
 <img src="https://github.com/user-attachments/assets/b8f1965b-8f8a-49c9-856c-193359a36a32" alt="Mogi Home Page" width="400"/>
@@ -189,19 +241,31 @@ Mogi は AI の力を活用して現実的な就職面接をシミュレート�
 
 ## コントリビューション
 
-このプロジェクトに貢献したい場合は、リポジトリをフォークし、変更を加えてプルリクエストを作成してください。
+<div style="background-color: #e8f0fe; padding: 15px; border-radius: 5px; margin-top: 20px;">
+   このプロジェクトに貢献したい場合は、リポジトリをフォークし、変更を加えてプルリクエストを作成してください。
+</div>
 
 ## ライセンス
 
-このプロジェクトはMITライセンスの下にあります。
-
+<div style="background-color: #f0f0f0; padding: 15px; border-radius: 5px; margin-top: 20px;">
+  このプロジェクトはMITライセンスの下にあります。
+</div>
 </details>
 
 <details>
 <summary>Tiếng Việt</summary>
-# Mogi - SaaS Phỏng Vấn Thử với AI
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/b8f1965b-8f8a-49c9-856c-193359a36a32" alt="Mogi Logo" width="200"/>
+  <h1>Mogi - SaaS Phỏng Vấn Thử với AI</h1>
+</div>
 
-Mogi là một ứng dụng SaaS trên nền tảng web được thiết kế để giúp người dùng cải thiện kỹ năng phỏng vấn thông qua các cuộc phỏng vấn thử được hỗ trợ bởi AI. Được xây dựng bằng Next.js, TypeScript, Tailwind CSS, Prisma, Neon và Gemini API, Mogi cung cấp phản hồi cá nhân hóa để hỗ trợ người dùng trên hành trình đi đến thành công.
+<hr style="border: 1px solid #ddd; margin: 20px 0;">
+
+<div style="background-color: #f9f9f9; padding: 20px; border-radius: 8px;">
+  <p style="font-size: 1.1em;">
+  Mogi là một ứng dụng SaaS trên nền tảng web được thiết kế để giúp người dùng cải thiện kỹ năng phỏng vấn thông qua các cuộc phỏng vấn thử được hỗ trợ bởi AI. Được xây dựng bằng Next.js, TypeScript, Tailwind CSS, Prisma, Neon và Gemini API, Mogi cung cấp phản hồi cá nhân hóa để hỗ trợ người dùng trên hành trình đi đến thành công.
+  </p>
+</div>
 
 ## Tổng quan
 
@@ -212,15 +276,18 @@ Mogi tận dụng sức mạnh của AI để mô phỏng các cuộc phỏng v�
 <img src="https://github.com/user-attachments/assets/c595ae1c-e602-4dbb-a91c-8880b66917f2" alt="Mogi Sign Up Page" width="400"/>
 </p>
 
-## Các tính năng chính
-
-*   **Phỏng vấn thử được hỗ trợ bởi AI:** Thực hành với các mô phỏng phỏng vấn thực tế được hỗ trợ bởi AI.
-*   **Phỏng vấn tùy chỉnh:** Điều chỉnh các cài đặt như vị trí công việc, ngăn xếp công nghệ và mức độ kinh nghiệm.
-*   **Câu hỏi do AI tạo ra:** Nhận các câu hỏi phỏng vấn liên quan phù hợp với thông số kỹ thuật của bạn.
-*   **Phản hồi theo thời gian thực:** Nhận thông tin chi tiết và đề xuất ngay lập tức để cải thiện hiệu suất của bạn.
-*   **Mẫu tùy chỉnh:** Tạo và lưu các mẫu phỏng vấn tùy chỉnh.
-*   **Đăng ký và đăng nhập dễ dàng:** Nhanh chóng tạo tài khoản hoặc đăng nhập bằng thông tin đăng nhập hiện có.
-*   **Giao diện thân thiện với người dùng:** Tận hưởng trải nghiệm người dùng liền mạch và trực quan.
+<div style="background-color: #e8f0fe; padding: 15px; border-radius: 5px; margin-top: 20px;">
+  <h2>Các tính năng chính</h2>
+  <ul>
+    <li><strong>Phỏng vấn thử được hỗ trợ bởi AI:</strong> Thực hành với các mô phỏng phỏng vấn thực tế được hỗ trợ bởi AI.</li>
+    <li><strong>Phỏng vấn tùy chỉnh:</strong> Điều chỉnh các cài đặt như vị trí công việc, ngăn xếp công nghệ và mức độ kinh nghiệm.</li>
+    <li><strong>Câu hỏi do AI tạo ra:</strong> Nhận các câu hỏi phỏng vấn liên quan phù hợp với thông số kỹ thuật của bạn.</li>
+    <li><strong>Phản hồi theo thời gian thực:</strong> Nhận thông tin chi tiết và đề xuất ngay lập tức để cải thiện hiệu suất của bạn.</li>
+    <li><strong>Mẫu tùy chỉnh:</strong> Tạo và lưu các mẫu phỏng vấn tùy chỉnh.</li>
+    <li><strong>Đăng ký và đăng nhập dễ dàng:</strong> Nhanh chóng tạo tài khoản hoặc đăng nhập bằng thông tin đăng nhập hiện có.</li>
+    <li><strong>Giao diện thân thiện với người dùng:</strong> Tận hưởng trải nghiệm người dùng liền mạch và trực quan.</li>
+  </ul>
+</div>
 
 <p align="center">
 <img src="https://github.com/user-attachments/assets/62bf9272-ad56-491d-a3f9-06308f04233b" alt="Mogi Dashboard Page" width="400"/>
@@ -229,10 +296,14 @@ Mogi tận dụng sức mạnh của AI để mô phỏng các cuộc phỏng v�
 
 ## Hướng dẫn sử dụng
 
-1.  **Đăng ký/Đăng nhập:** Truy cập trang đăng ký và tạo tài khoản mới hoặc đăng nhập bằng tài khoản đã có.
-2.  **Tạo phỏng vấn mới:** Nhấn vào nút "Add new interview" và cung cấp thông tin về vị trí ứng tuyển, kỹ năng cần thiết, số năm kinh nghiệm, và các thông tin khác.
-3.  **Bắt đầu phỏng vấn:** Lựa chọn bài phỏng vấn bạn muốn và bắt đầu. Bạn sẽ được hỏi từng câu một.
-4.  **Nhận phản hồi:** Sau khi kết thúc phỏng vấn, bạn sẽ nhận được đánh giá chi tiết về phần trả lời của mình, giúp bạn cải thiện kỹ năng phỏng vấn.
+<div style="background-color: #f0f0f0; padding: 15px; border-radius: 5px; margin-top: 20px;">
+  <ol>
+    <li><strong>Đăng ký/Đăng nhập:</strong> Truy cập trang đăng ký và tạo tài khoản mới hoặc đăng nhập bằng tài khoản đã có.</li>
+    <li><strong>Tạo phỏng vấn mới:</strong> Nhấn vào nút "Add new interview" và cung cấp thông tin về vị trí ứng tuyển, kỹ năng cần thiết, số năm kinh nghiệm, và các thông tin khác.</li>
+    <li><strong>Bắt đầu phỏng vấn:</strong> Lựa chọn bài phỏng vấn bạn muốn và bắt đầu. Bạn sẽ được hỏi từng câu một.</li>
+    <li><strong>Nhận phản hồi:</strong> Sau khi kết thúc phỏng vấn, bạn sẽ nhận được đánh giá chi tiết về phần trả lời của mình, giúp bạn cải thiện kỹ năng phỏng vấn.</li>
+  </ol>
+</div>
 
 <p align="center">
 <img src="https://github.com/user-attachments/assets/1be80bf6-3a15-472a-88a8-ab9ef4daf526" alt="Mogi Interview Questions" width="400"/>
@@ -240,9 +311,12 @@ Mogi tận dụng sức mạnh của AI để mô phỏng các cuộc phỏng v�
 </p>
 
 ## Công nghệ sử dụng
-
-*   **Frontend:** Next.js, TypeScript, Tailwind CSS
-*   **Backend:** Prisma, Neon, Gemini API
+<div style="background-color: #e8f0fe; padding: 15px; border-radius: 5px; margin-top: 20px;">
+  <ul>
+    <li><strong>Frontend:</strong> Next.js, TypeScript, Tailwind CSS</li>
+    <li><strong>Backend:</strong> Prisma, Neon, Gemini API</li>
+  </ul>
+</div>
 
 ## Bản demo
 
@@ -254,30 +328,37 @@ Mogi tận dụng sức mạnh của AI để mô phỏng các cuộc phỏng v�
 </p>
 
 ## Hướng dẫn cài đặt
-
-Để chạy dự án này, bạn cần cài đặt Node.js và pnpm.
-
-1. Clone repository
-   ```bash
-   git clone https://github.com/vanthaita/mogi-app-turbo.git
-   ```
-2. Di chuyển đến thư mục dự án
-   ```bash
-   cd mogi-app-turbo
-   ```
-3. Cài đặt dependencies
-   ```bash
-   pnpm install
-   ```
-4. Chạy server
-   ```bash
-   pnpm dev
-   ```
-5. Truy cập ứng dụng thông qua URL được cung cấp.
-
-## Liên kết
-
-[Github Repository](https://github.com/vanthaita/mogi-app-turbo)
+<div style="background-color: #f0f0f0; padding: 15px; border-radius: 5px; margin-top: 20px;">
+    Để chạy dự án này, bạn cần cài đặt Node.js và pnpm.
+  <ol>
+    <li>Clone repository
+     ```bash
+      git clone https://github.com/vanthaita/mogi-app-turbo.git
+     ```
+   </li>
+    <li>Di chuyển đến thư mục dự án
+     ```bash
+      cd mogi-app-turbo
+     ```
+   </li>
+    <li>Cài đặt dependencies
+     ```bash
+       pnpm install
+     ```
+    </li>
+    <li>Chạy server
+     ```bash
+      pnpm dev
+     ```
+    </li>
+     <li>Truy cập ứng dụng thông qua URL được cung cấp.</li>
+   </ol>
+</div>
+<br>
+<div style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin-top: 20px;">
+  <h2>Liên kết</h2>
+  <p><a href="https://github.com/vanthaita/mogi-app-turbo">Github Repository</a></p>
+</div>
 
 <p align="center">
 <img src="https://github.com/user-attachments/assets/b8f1965b-8f8a-49c9-856c-193359a36a32" alt="Mogi Home Page" width="400"/>
@@ -285,9 +366,13 @@ Mogi tận dụng sức mạnh của AI để mô phỏng các cuộc phỏng v�
 
 ## Đóng góp
 
-Nếu bạn muốn đóng góp cho dự án này, vui lòng fork repository và tạo pull request với những thay đổi của bạn.
+<div style="background-color: #e8f0fe; padding: 15px; border-radius: 5px; margin-top: 20px;">
+    Nếu bạn muốn đóng góp cho dự án này, vui lòng fork repository và tạo pull request với những thay đổi của bạn.
+</div>
 
 ## Giấy phép
 
-Dự án này được cấp phép theo giấy phép MIT.
+<div style="background-color: #f0f0f0; padding: 15px; border-radius: 5px; margin-top: 20px;">
+  Dự án này được cấp phép theo giấy phép MIT.
+</div>
 </details>

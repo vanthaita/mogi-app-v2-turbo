@@ -1,6 +1,4 @@
-Okay, I've reviewed the provided markdown and will make some improvements to enhance readability, consistency, and overall presentation. Here's the revised markdown with explanations of the changes:
 
-```markdown
 # Mogi - AI Mock Interview SaaS
 
 Mogi is a web-based SaaS application designed to help users improve their interview skills through AI-driven mock interviews. Built with Next.js, TypeScript, Tailwind CSS, Prisma, Neon, and the Gemini API, Mogi provides personalized feedback to support users on their journey to success.
